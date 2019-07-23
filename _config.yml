@@ -1,1 +1,5 @@
-theme: jekyll-theme-midnight
+# Site settings
+title: Beyond Similarity
+description: Willian Werner's personal blog
+keywords: Data Science, Statistics
+author: Willian Werner
