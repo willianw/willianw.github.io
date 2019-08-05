@@ -257,6 +257,14 @@ a:focus {
 	height: 0;
 	pointer-events: none;
 }
+
+.container {
+    margin-left: 20%;
+    position: relative;
+    float: left;
+    width: 80%;
+}
+
 /* Header */
 
 .header {
@@ -277,10 +285,31 @@ a:focus {
 	padding: .5em 0 1em;
 	color: #999;
 }
+
+.sidebar {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	bottom: 0px;
+	width: 20%;
+	background-color: #333333;
+}
+
+.sidebar * {
+	color: #FFFFFF;
+}
+
+img#profile_photo {
+    margin-top: 20px;
+    width: 60%;
+    height: auto;
+    border-radius: 50%;
+}
+
 /* Top Navigation Style */
 
 .links {
-	margin: 2em 0 0;
+	margin: 1em 0 0;
 }
 
 .links a {

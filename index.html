@@ -4,6 +4,7 @@ layout: compress
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <head>
+    {% include load_tags.html %}
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,15 +37,35 @@ layout: compress
     
 </head>
 <body class="body">
+<div class="sidebar">
+    <header class="header" style="color: #FFFFFF;">
+        <nav class="links">
+            <a data-toggle="tooltip" data-placement="bottom" title="Personal CV" href="#">
+                <i class="far fa-address-card fa-2x"></i>
+            </a>
+            <a data-toggle="tooltip" data-placement="bottom" title="Linkedin" href="#">
+                <i class="fab fa-linkedin-in fa-2x"></i>
+            </a>
+            <a data-toggle="tooltip" data-placement="bottom" title="Github" href="#">
+                <i class="fab fa-github fa-2x"></i>
+            </a>
+            <a data-toggle="tooltip" data-placement="bottom" title="Kaggle" href="#">
+                <i class="fab fa-kaggle fa-2x"></i>
+            </a>
+        </nav>
+        <img src="img/profile.jpg" id="profile_photo">
+        <p>Willian Werner A. Costa</p><hr/>
+        <h2>Posts</h2>
+        <ul>
+        {% for tag in site.tags %}
+            <li>{{tag}}</li>
+        {% endfor %}
+        </ul>
+    </header>
+</div>    
 <div class="container">
     <header class="header">
         <h1>{{ site.title }}<span>{{ site.description }}</span></h1>
-        <nav class="links">
-            <a data-toggle="tooltip" data-placement="bottom" title="Personal CV" href="#"><i class="far fa-address-card fa-2x"></i></a>
-            <a data-toggle="tooltip" data-placement="bottom" title="Linkedin" href="#"><i class="fab fa-linkedin-in fa-2x"></i></a>
-            <a data-toggle="tooltip" data-placement="bottom" title="Github" href="#"><i class="fab fa-github fa-2x"></i></a>
-            <a data-toggle="tooltip" data-placement="bottom" title="Kaggle" href="#"><i class="fab fa-kaggle fa-2x"></i></a>
-        </nav>
     </header>
     <div class="content">
         <!-- trianglify pattern container -->
