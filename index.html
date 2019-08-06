@@ -55,10 +55,12 @@ layout: compress
         </nav>
         <img src="img/profile.jpg" id="profile_photo">
         <p>Willian Werner A. Costa</p><hr/>
-        <h2>Posts</h2>
+        <h2>Tags</h2>
         <ul>
-        {% for tag in site.tags %}
-            <li>{{tag}}</li>
+        {% for count_with_tag in counts_with_tags %}
+            {% assign tag = count_with_tag | split:":" | last %}
+            {% assign count = site.tags[tag] | size %}
+            <li><a href="/blog/tags/{{ tag | slugify }}">{{ tag }}</a><p>({{ count }})</p></li>
         {% endfor %}
         </ul>
     </header>

@@ -299,6 +299,26 @@ a:focus {
 	color: #FFFFFF;
 }
 
+div.sidebar li a {
+	text-align: right;
+    display: block;
+	color: #FFFFFF;
+}
+
+.sidebar li p {
+    display: contents;
+    float: right;
+}
+
+div.sidebar li a:hover {
+	text-decoration-line: underline;
+}
+
+div.sidebar ul {
+	list-style-type: none;
+    padding-inline-start: 20px;
+}
+
 img#profile_photo {
     margin-top: 20px;
     width: 60%;
