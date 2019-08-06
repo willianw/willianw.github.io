@@ -65,6 +65,8 @@ var demo = (function (window) {
         _bindHashChange();
 
         _triggerOpenCard('', _getHashFromURL(location.href));
+
+        _toogleCV();
     };
 
     /**
@@ -310,6 +312,26 @@ var demo = (function (window) {
             _triggerOpenCard(oldHash, newHash);
         });
     };
+
+    var _toogleCV = function(){
+        $('a#button-cv').on('click', function() {
+            var CV = $('embed#cv');
+            var hiddenCV = CV.css('display') == 'none';
+            var blogContent = $('div.content');
+            var body = $('body');
+            if (hiddenCV) {
+                CV.css('display', 'block');
+                blogContent.css('display', 'none');
+                body.css('overflow-y', 'hidden');
+                $('a#button-cv i').css('color', '#AA3939');
+            } else {
+                CV.css('display', 'none');
+                blogContent.css('display', 'block');
+                body.css('overflow-y', 'scroll');
+                $('a#button-cv i').css('color', '#FFFFFF');
+            };
+        });
+    }
 
     // Expose methods.
     return {

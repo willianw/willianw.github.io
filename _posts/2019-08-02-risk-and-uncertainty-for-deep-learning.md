@@ -61,7 +61,7 @@ plt.show();
 ```
 
 
-![png](output_7_0.png)
+![png]({% include img_path.html a=page.path p="output_7_0.png" %})
 
 
 
@@ -81,7 +81,7 @@ plt.show();
 
 
 
-![png](output_8_1.png)
+![png]({% include img_path.html a=page.path p="output_8_1.png" %})
 
 
 
@@ -100,7 +100,7 @@ plt.show();
 ```
 
 
-![png](output_9_0.png)
+![png]({% include img_path.html a=page.path p="output_9_0.png" %})
 
 
 ## Simple Regression
@@ -446,7 +446,7 @@ plt.show()
 ```
 
 
-![png](output_28_0.png)
+![png]({% include img_path.html a=page.path p="output_28_0.png" %})
 
 
 
@@ -469,7 +469,7 @@ plt.show();
 ```
 
 
-![png](output_29_0.png)
+![png]({% include img_path.html a=page.path p="output_29_0.png" %})
 
 
 
@@ -488,7 +488,7 @@ plt.show();
 ```
 
 
-![png](output_30_0.png)
+![png]({% include img_path.html a=page.path p="output_30_0.png" %})
 
 
 # References
