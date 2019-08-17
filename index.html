@@ -12,7 +12,7 @@ layout: compress
     <meta name="description" content="{{ site.description }}"/>
     <meta name="keywords" content="{{ site.keywords }}"/>
     <meta name="author" content="{{ site.author }}"/>
-    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="shortcut icon" href="img/favicon.png">
     <link rel="stylesheet" type="text/css" href="css/normalize.css"/>
     <link rel="stylesheet" type="text/css" href="css/all.css"/>
     <link rel="stylesheet" type="text/css" href="css/modern-blog.css"/>
@@ -29,7 +29,8 @@ layout: compress
         MathJax.Hub.Config({
           tex2jax: {
             skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-            inlineMath: [['$','$']]
+            displayMath: [ ['$$','$$'] ],
+            inlineMath: [['$','$']],
           }
         });
     </script>
@@ -55,13 +56,13 @@ layout: compress
         </nav>
         <img src="img/profile.jpg" id="profile_photo">
         <p id='name'>Willian Werner A. Costa</p><hr/>
-        <h2>Tags</h2>
-        <table class='tags'>
-        {% for count_with_tag in counts_with_tags %}
-            {% assign tag = count_with_tag | split:":" | last %}
-            {% assign count = site.tags[tag] | size %}
+        <h2>Categories</h2>
+        <table class='categories'>
+        {% for count_with_cat in counts_with_cats %}
+            {% assign cat = count_with_cat | split:":" | last %}
+            {% assign count = site.categories[cat] | size %}
             <tr>
-                <td class='tag'><a href="tags/{{ tag | slugify }}">{{ tag }}</a></td>
+                <td class='cat'><a href="categories/{{ cat | slugify }}">{{ cat | capitalize }}</a></td>
                 <td class='count'><span>{{ count }}</span></td>
             </tr>
         {% endfor %}
@@ -71,7 +72,11 @@ layout: compress
 <embed id="cv" src="assets/CV.pdf" type="application/pdf"/>
 <div class="container">
     <header class="header">
-        <h1>{{ site.title }}<span>{{ site.description }}</span></h1>
+        <h1>
+            <img src="img/favicon.png"/>
+            {{ site.title }}
+            <span>{{ site.description }}</span>
+        </h1>
     </header>
     <div class="content">
         <!-- trianglify pattern container -->
@@ -95,7 +100,6 @@ layout: compress
                     <div class="card__content">
                         <i class="card__btn-close fa fa-times"></i>
                         <div class="card__caption">
-                            <p class="card__date">{{ post.date | date: "%b %y"}}</p>
                             <p class="card__tags">
                                 {% for tag in post.tags %}
                                     <span>{{ tag }}</span>
@@ -106,8 +110,7 @@ layout: compress
                         </div>
                         <div class="card__copy">
                             <div class="meta">
-                                <img class="meta__avatar" src="{{ post.avatar }}"/>
-                                <span class="meta__author">{{ post.author }}</span>
+                                <span class="meta__category">{{ post.category | capitalize }}</span>
                                 <span class="meta__date">{{ post.date | date: "%Y-%m-%d" }}</span>
                             </div>
                             {{ post.content }}

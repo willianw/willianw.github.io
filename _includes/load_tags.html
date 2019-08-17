@@ -1,2 +1,5 @@
 {% capture counts_with_tags_string %}{% for tag in site.tags %}{{ tag[1] | size | prepend:"000000" | slice:-6,6 }}:{{ tag[0] }}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
 {% assign counts_with_tags = counts_with_tags_string | split:"," | sort | reverse %}
+
+{% capture counts_with_cats_string %}{% for cat in site.categories %}{{ cat[1] | size | prepend:"000000" | slice:-6,6 }}:{{ cat[0] }}{% unless forloop.last %},{% endunless %}{% endfor %}{% endcapture %}
+{% assign counts_with_cats = counts_with_cats_string | split:"," | sort | reverse %}

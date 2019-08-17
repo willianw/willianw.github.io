@@ -3,8 +3,9 @@ title:  "Risk and uncertainty for deep learning"
 subtitle: "Errors"
 author: "Wferr"
 avatar: "img/authors/wferr.png"
-image: "img/f.jpg"
-date:   2015-04-25 12:12:12
+image: "img/posts/2019-08-02-risk-and-uncertainty-for-deep-learning/cover.jpeg"
+date:   2019-08-02
+category: "data science"
 tags: ["machine learning", "statistics"]
 ---
 
@@ -12,7 +13,7 @@ tags: ["machine learning", "statistics"]
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
-plt.style.use('bmh')
+plt.style.use('bmh') 
 ```
 
 # Risk vs. Uncertainty
