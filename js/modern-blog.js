@@ -67,6 +67,10 @@ var demo = (function (window) {
         _triggerOpenCard('', _getHashFromURL(location.href));
 
         _toogleCV();
+
+        _selectCategory();
+
+        _paintThemeColor();
     };
 
     /**
@@ -305,7 +309,6 @@ var demo = (function (window) {
             });
         }());
 
-
         window.addEventListener('hashchange', function (e) {
             var newHash = _getHashFromURL(e.newURL);
             var oldHash = _getHashFromURL(e.oldURL);
@@ -322,15 +325,36 @@ var demo = (function (window) {
             if (hiddenCV) {
                 CV.css('display', 'block');
                 blogContent.css('display', 'none');
-                body.css('overflow-y', 'hidden');
-                $('a#button-cv i').css('color', '#AA3939');
+                $('a#button-cv i, a#button-cv span').addClass('cv-active');
             } else {
                 CV.css('display', 'none');
                 blogContent.css('display', 'block');
-                body.css('overflow-y', 'scroll');
-                $('a#button-cv i').css('color', '#FFFFFF');
+                $('a#button-cv i, a#button-cv span').removeClass('cv-active');
             };
         });
+    }
+
+    var _selectCategory = function() {
+        $('.categories a').on("click", function(){
+            var category = this.name;
+            $('.content .card').each(function(post, i) {
+                if ($(post).attr('category').includes(category)) {
+                    $(post).css('display', 'block');
+                } else {
+                    $(post).css('display', 'none');
+                }
+            });
+        })
+
+    }
+
+    var _paintThemeColor = function() {
+        var triangles = $("div.pattern path")
+        var randomTriangle = Math.floor(Math.random()*triangles.length)
+        var color = $(triangles[randomTriangle]).css('stroke')
+
+        // Paint things with selected color
+        $("div.sidebar hr").css("border-color", color)
     }
 
     // Expose methods.
