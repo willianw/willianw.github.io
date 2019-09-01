@@ -16,9 +16,14 @@ layout: compress
     <link rel="stylesheet" type="text/css" href="css/normalize.css"/>
     <link rel="stylesheet" type="text/css" href="css/all.css"/>
     <link rel="stylesheet" type="text/css" href="css/modern-blog.css"/>
-    <!--[if IE]>
-    <script type="text/javascript" src="js/vendors/html5.min.js"></script>
-    <![endif]-->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146140115-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-146140115-1');
+    </script>
     <script>
         if (navigator.userAgent.toLowerCase().indexOf('firefox') > -1) {
             var root = document.getElementsByTagName('html')[0];
@@ -34,13 +39,17 @@ layout: compress
           }
         });
     </script>
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script> 
+    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/gh/lepture/github-cards@latest/jsdelivr/widget.js"></script>
     
 </head>
 <body class="body">
 <div class="sidebar">
     <header class="header" style="color: #FFFFFF;">
         <p id='name'>Willian Werner A. Costa</p>
+        <p id="description">
+            Bachelor of Computer Engineering at Escola Politécnica da USP
+        </p>
         <img src="img/profile.jpg" id="profile_photo">
         <nav class="links">
             <a data-toggle="tooltip" data-placement="bottom" title="Kaggle" href="https://www.kaggle.com/willianw">

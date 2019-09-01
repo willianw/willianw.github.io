@@ -1,11 +1,9 @@
 ---
 title:  "Elegant Contradiction in Thermal Expansion Law"
 subtitle: "Sometimes a model is just a prediction tool; you can't extract any underlying truth from it"
-author: "Will"
-avatar: "img/authors/will.png"
-category: "Digression"
+category: "Physics"
 image: "img/posts/2019-08-11-elegant-contradiction-in-thermal-expansion-law/cover.jpeg"
-tags: ["Physics", "Deep"]
+tags: ["Deep"]
 ---
 
 Do you remember thermal expansion? You might say that in a hotter day, a train rail will be longer than in a colder day.
@@ -34,15 +32,19 @@ Even so, that's very strange for a physical quantity as width. This means, for e
 
 ### Mathematically
 Let's define $\mathcal{L}(\ell_0, \alpha, \Delta T, n)$ the new length of a bar heaten in $n$ steps.
+
 At the end of 1st step, $\ell_1 = \ell_0 \left( 1 + \alpha\cdot\frac{\Delta T}{n} \right)$
+
 At the end of 2nd step, $\ell_2 = \ell_1 \left( 1 + \alpha\cdot\frac{\Delta T}{n} \right) = \ell_0 \left( 1 + \alpha\cdot\frac{\Delta T}{n} \right)^2$
+
 $\cdots$
+
 At the end of last step, $\mathcal{L} = \ell_0 \left( 1 + \alpha\cdot\frac{\Delta T}{n} \right)^n$.
 This is what the above expression looks like:
 
 ![png](img/posts/2019-08-11-elegant-contradiction-in-thermal-expansion-law/graph1.png)
 
-**Homework**: do you remember from calculus lessons what happens to $\mathcal{L}$ as $n\rightarrow\infty$? *ANS:* becomes exponential, i.e., $\ell_0 \cdot e^{\alpha\Delta T}$. Surprised? Because i'm not...
+**Homework**: do you remember from calculus lessons what happens to $\mathcal{L}$ as $n\rightarrow\infty$? *ANS:* becomes exponential, i.e., $\ell_0 \cdot e^{\alpha\Delta T}$. Surprised? Because I'm not...
 
 ### Explanation
 The problem is with $\alpha$. Saying $\alpha$ is constant means that matter is eternally extensible. If you've played with a rubber band you know there's a limit for elasticity. The following graph is famous in materials sciences and describes this phenomena:

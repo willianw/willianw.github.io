@@ -324,10 +324,12 @@ var demo = (function (window) {
             var body = $('body');
             if (hiddenCV) {
                 CV.css('display', 'block');
+                body.css('overflow-y', 'hidden');
                 blogContent.css('display', 'none');
                 $('a#button-cv i, a#button-cv span').addClass('cv-active');
             } else {
                 CV.css('display', 'none');
+                body.css('overflow-y', 'auto');
                 blogContent.css('display', 'block');
                 $('a#button-cv i, a#button-cv span').removeClass('cv-active');
             };
@@ -350,8 +352,7 @@ var demo = (function (window) {
 
     var _paintThemeColor = function() {
         var triangles = $("div.pattern path")
-        var randomTriangle = Math.floor(Math.random()*triangles.length)
-        var color = $(triangles[randomTriangle]).css('stroke')
+        var color = $(triangles[triangles.length - 1]).css('stroke')
 
         // Paint things with selected color
         $("div.sidebar hr").css("border-color", color)
