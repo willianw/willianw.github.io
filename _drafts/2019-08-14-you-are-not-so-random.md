@@ -2,7 +2,7 @@
 title:  "You are not so random as you think you are"
 subtitle: "Actually, you're very predictable. But that's beside the point"
 category: "Statistics"
-image: "/img/posts/2019-08-14-you-are-not-so-random/cover.jpg"
+image: "cover.jpg"
 tags: ["notebook"]
 ---
 

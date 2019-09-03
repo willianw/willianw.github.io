@@ -1,0 +1,127 @@
+:root {
+    --theme-color: #333333;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans|Lato|Nunito&display=swap');
+
+body {
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    color: var(--theme-color);
+    font-family: 'Nunito', 'Muli', 'Quicksand', sans-serif;
+    font-weight: 400;
+    padding: 0;
+    margin: 0;
+}
+
+h1 {
+    font-family: 'Lato', 'Rosario', 'Molengo', sans-serif;
+}
+
+h2, h3, h4, h5, h6 {
+    font-family: 'Fira sans', 'Palanquin', 'Metrophobic', 'Heebo', sans-serif;
+}
+
+p {
+    text-align: justify;
+}
+
+/* Header */
+.header {
+    background-color: #333333;
+    color: #FFFFFF;
+    padding: 1% 5%;
+}
+
+.header a {
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+.header h1 {
+    margin: 1%;
+}
+
+/* Header Title */
+header {
+    padding: 5%;
+    border-bottom: solid 1px #000000;
+}
+
+header h1{
+    color: #000000;
+    margin-bottom: 0;
+}
+
+header span{
+    font-size: 1.6em;
+    color: #999999;
+    display: block;
+    font-style: italic;
+    text-align: right;
+}
+
+/* Post */
+.container {
+    padding: 0;
+}
+
+.content {
+    background-color: #FFFFFF;
+    margin: 0 25%;
+    padding: 1% 5%;
+}
+
+div.highlight {
+    margin: 1% 10%;
+}
+
+/* Image */
+.content img {
+    border: solid 1px #C8C8C8;
+    max-width: 100%;
+    display: block;
+    margin: auto;
+}
+
+/* Code */
+pre.highlight {
+    overflow: auto;
+}
+
+/* Table */
+
+.dataframe {
+    width:100%;
+    box-sizing: border-box;
+    border-collapse: collapse;
+    border:1px solid #EEEEEE;
+    margin: 1%;
+    overflow-y: auto;
+}
+
+.dataframe thead {
+	display:flex;
+	width:100%;
+    background:#000;
+    color: #EEEEEE;
+    text-align: center;
+    font-weight: 100;
+}
+
+.dataframe tr {
+	display:flex;
+	width:100%;
+}
+
+.dataframe tr:nth-of-type(even) {
+    background:#EEEEEE;
+}
+
+.dataframe td, .dataframe th {
+    text-align: center;
+    padding: 1% 0.5%;
+	flex: 1 1 20%;
+    border: none;
+}

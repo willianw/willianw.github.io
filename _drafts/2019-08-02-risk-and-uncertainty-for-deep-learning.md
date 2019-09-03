@@ -1,8 +1,7 @@
 ---
 title:  "Risk and uncertainty for deep learning"
 subtitle: "I need to commit last updates made in my other computer"
-image: "img/posts/2019-08-02-risk-and-uncertainty-for-deep-learning/cover.png"
-date:   2019-08-02
+image: "cover.png"
 category: "Machine Learning"
 tags: ["notebook"]
 ---
@@ -60,7 +59,7 @@ plt.show();
 ```
 
 
-![png]({% include img_path.html a=page.path p="output_7_0.png" %})
+![png](output_7_0.png)
 
 
 
@@ -80,7 +79,7 @@ plt.show();
 
 
 
-![png]({% include img_path.html a=page.path p="output_8_1.png" %})
+![png](output_8_1.png)
 
 
 
@@ -99,7 +98,7 @@ plt.show();
 ```
 
 
-![png]({% include img_path.html a=page.path p="output_9_0.png" %})
+![png](output_9_0.png)
 
 
 ## Simple Regression
@@ -184,9 +183,9 @@ plt.show();
 
 ### Introduction
 
-In a ML problem, we want to aproximate $\hat{f}(X) = Y$. Given that a neural network has weights $w$, we want to maximize the probability $p(Y|w, X)$. During trainning, we adjust $w$ so that $p$ increases. Now for uncertainty we need the posterior probability of weights, i.e., $p(w|Y, X)$. Using Bayes's Theorem:
-$$p(w|Y, X) = \frac{p(Y|w, X) \cdot p(w|Y)}{p(X|Y)} = $$
-$$= \frac{p(Y|w, X) \cdot p(w|Y)}{p(X|Y)}$$
+In a ML problem, we want to aproximate $\hat{f}(X) = Y$. Given that a neural network has weights $w$, we want to maximize the probability $p(Y \mid w, X)$. During trainning, we adjust $w$ so that $p$ increases. Now for uncertainty we need the posterior probability of weights, i.e., $p(w \mid Y, X)$. Using Bayes's Theorem:
+$$p(w \mid Y, X) = \frac{p(Y \mid w, X) \cdot p(w \mid Y)}{p(X \mid Y)} = $$
+$$= \frac{p(Y \mid w, X) \cdot p(w \mid Y)}{p(X \mid Y)}$$
 
 ### The Kullback-Leibler divergence
 
@@ -194,12 +193,12 @@ Given two distributions, $p$ and $q$, we can establish the following similarity 
 
 $$
 \begin{align}
-KL(q || p) = \sum_{x}&q(x)\log\left[\frac{q(x)}{p(x)}\right], \qquad\text{Discrete case}\\
-KL(q || p) = \int_{-\infty}^\infty &q(x)\log\left[\frac{q(x)}{p(x)}\right]dx, \qquad\text{Continuous case}\\
+KL(q  \Vert  p) = \sum_{x}&q(x)\log\left[\frac{q(x)}{p(x)}\right], \qquad\text{Discrete case}\\
+KL(q  \Vert  p) = \int_{-\infty}^\infty &q(x)\log\left[\frac{q(x)}{p(x)}\right]dx, \qquad\text{Continuous case}\\
 \end{align}
 $$
 
-It's important to tell that it's not completely a distance measure, since $KL(q || p) \neq KL(p || q)$.
+It's important to tell that it's not completely a distance measure, since $KL(q  \Vert  p) \neq KL(p  \Vert  q)$.
 
 ## Monte-Carlo Dropout
 
@@ -226,214 +225,6 @@ dropout_model.compile(loss='mse', optimizer='adam')
 hist = dropout_model.fit(x, y, epochs=100, verbose=1)
 ```
 
-    W0803 13:40:30.582259 140027329709824 deprecation.py:506] From /home/willian/notebooks_env/risk-and-uncertainty-deep-learning/env/lib/python3.7/site-packages/keras/backend/tensorflow_backend.py:3445: calling dropout (from tensorflow.python.ops.nn_ops) with keep_prob is deprecated and will be removed in a future version.
-    Instructions for updating:
-    Please use `rate` instead of `keep_prob`. Rate should be set to `rate = 1 - keep_prob`.
-
-
-    Epoch 1/100
-    10000/10000 [==============================] - 2s 229us/step - loss: 0.6072
-    Epoch 2/100
-    10000/10000 [==============================] - 2s 183us/step - loss: 0.5888
-    Epoch 3/100
-    10000/10000 [==============================] - 2s 177us/step - loss: 0.5644
-    Epoch 4/100
-    10000/10000 [==============================] - 2s 175us/step - loss: 0.5402
-    Epoch 5/100
-    10000/10000 [==============================] - 2s 170us/step - loss: 0.5216
-    Epoch 6/100
-    10000/10000 [==============================] - 2s 191us/step - loss: 0.4889
-    Epoch 7/100
-    10000/10000 [==============================] - 2s 182us/step - loss: 0.4685
-    Epoch 8/100
-    10000/10000 [==============================] - 2s 184us/step - loss: 0.4488
-    Epoch 9/100
-    10000/10000 [==============================] - 2s 179us/step - loss: 0.4239
-    Epoch 10/100
-    10000/10000 [==============================] - 2s 177us/step - loss: 0.3834
-    Epoch 11/100
-    10000/10000 [==============================] - 2s 205us/step - loss: 0.3528
-    Epoch 12/100
-    10000/10000 [==============================] - 2s 195us/step - loss: 0.3306
-    Epoch 13/100
-    10000/10000 [==============================] - 2s 212us/step - loss: 0.3331
-    Epoch 14/100
-    10000/10000 [==============================] - 2s 184us/step - loss: 0.3132
-    Epoch 15/100
-    10000/10000 [==============================] - 2s 190us/step - loss: 0.3088
-    Epoch 16/100
-    10000/10000 [==============================] - 2s 187us/step - loss: 0.2999
-    Epoch 17/100
-    10000/10000 [==============================] - 2s 201us/step - loss: 0.2907
-    Epoch 18/100
-    10000/10000 [==============================] - 2s 208us/step - loss: 0.2948
-    Epoch 19/100
-    10000/10000 [==============================] - 2s 202us/step - loss: 0.2851
-    Epoch 20/100
-    10000/10000 [==============================] - 2s 195us/step - loss: 0.2841
-    Epoch 21/100
-    10000/10000 [==============================] - 2s 228us/step - loss: 0.2749
-    Epoch 22/100
-    10000/10000 [==============================] - 2s 201us/step - loss: 0.2741
-    Epoch 23/100
-    10000/10000 [==============================] - 2s 191us/step - loss: 0.2728
-    Epoch 24/100
-    10000/10000 [==============================] - 2s 194us/step - loss: 0.2671
-    Epoch 25/100
-    10000/10000 [==============================] - 2s 187us/step - loss: 0.2651
-    Epoch 26/100
-    10000/10000 [==============================] - 2s 181us/step - loss: 0.2600
-    Epoch 27/100
-    10000/10000 [==============================] - 2s 185us/step - loss: 0.2475
-    Epoch 28/100
-    10000/10000 [==============================] - 2s 184us/step - loss: 0.2450
-    Epoch 29/100
-    10000/10000 [==============================] - 2s 191us/step - loss: 0.2423
-    Epoch 30/100
-    10000/10000 [==============================] - 2s 221us/step - loss: 0.2434
-    Epoch 31/100
-    10000/10000 [==============================] - 2s 184us/step - loss: 0.2261
-    Epoch 32/100
-    10000/10000 [==============================] - 2s 184us/step - loss: 0.2256
-    Epoch 33/100
-    10000/10000 [==============================] - 2s 208us/step - loss: 0.2211
-    Epoch 34/100
-    10000/10000 [==============================] - 2s 174us/step - loss: 0.2146
-    Epoch 35/100
-    10000/10000 [==============================] - 2s 180us/step - loss: 0.2143
-    Epoch 36/100
-    10000/10000 [==============================] - 2s 176us/step - loss: 0.2125
-    Epoch 37/100
-    10000/10000 [==============================] - 2s 181us/step - loss: 0.2018
-    Epoch 38/100
-    10000/10000 [==============================] - 2s 176us/step - loss: 0.1981
-    Epoch 39/100
-    10000/10000 [==============================] - 2s 188us/step - loss: 0.2048
-    Epoch 40/100
-    10000/10000 [==============================] - 2s 183us/step - loss: 0.1953
-    Epoch 41/100
-    10000/10000 [==============================] - 2s 182us/step - loss: 0.1873
-    Epoch 42/100
-    10000/10000 [==============================] - 2s 182us/step - loss: 0.1948
-    Epoch 43/100
-    10000/10000 [==============================] - 2s 192us/step - loss: 0.1795
-    Epoch 44/100
-    10000/10000 [==============================] - 2s 199us/step - loss: 0.1753
-    Epoch 45/100
-    10000/10000 [==============================] - 2s 213us/step - loss: 0.1718
-    Epoch 46/100
-    10000/10000 [==============================] - 2s 203us/step - loss: 0.1812
-    Epoch 47/100
-    10000/10000 [==============================] - 2s 231us/step - loss: 0.1691
-    Epoch 48/100
-    10000/10000 [==============================] - 2s 219us/step - loss: 0.1731
-    Epoch 49/100
-    10000/10000 [==============================] - 2s 202us/step - loss: 0.1696
-    Epoch 50/100
-    10000/10000 [==============================] - 2s 221us/step - loss: 0.1674
-    Epoch 51/100
-    10000/10000 [==============================] - 2s 179us/step - loss: 0.1807
-    Epoch 52/100
-    10000/10000 [==============================] - 2s 205us/step - loss: 0.1607
-    Epoch 53/100
-    10000/10000 [==============================] - 2s 212us/step - loss: 0.1700
-    Epoch 54/100
-    10000/10000 [==============================] - 2s 211us/step - loss: 0.1653
-    Epoch 55/100
-    10000/10000 [==============================] - 2s 216us/step - loss: 0.1647
-    Epoch 56/100
-    10000/10000 [==============================] - 2s 186us/step - loss: 0.1614
-    Epoch 57/100
-    10000/10000 [==============================] - 2s 203us/step - loss: 0.1566
-    Epoch 58/100
-    10000/10000 [==============================] - 2s 245us/step - loss: 0.1592
-    Epoch 59/100
-    10000/10000 [==============================] - 2s 240us/step - loss: 0.1616
-    Epoch 60/100
-    10000/10000 [==============================] - 2s 221us/step - loss: 0.1624
-    Epoch 61/100
-    10000/10000 [==============================] - 2s 204us/step - loss: 0.1602
-    Epoch 62/100
-    10000/10000 [==============================] - 2s 213us/step - loss: 0.1513
-    Epoch 63/100
-    10000/10000 [==============================] - 2s 213us/step - loss: 0.1569
-    Epoch 64/100
-    10000/10000 [==============================] - 2s 195us/step - loss: 0.1499
-    Epoch 65/100
-    10000/10000 [==============================] - 2s 187us/step - loss: 0.1505
-    Epoch 66/100
-    10000/10000 [==============================] - 2s 185us/step - loss: 0.1568
-    Epoch 67/100
-    10000/10000 [==============================] - 2s 190us/step - loss: 0.1481
-    Epoch 68/100
-    10000/10000 [==============================] - 2s 211us/step - loss: 0.1481
-    Epoch 69/100
-    10000/10000 [==============================] - 2s 197us/step - loss: 0.1629
-    Epoch 70/100
-    10000/10000 [==============================] - 2s 208us/step - loss: 0.1449
-    Epoch 71/100
-    10000/10000 [==============================] - 2s 190us/step - loss: 0.1484
-    Epoch 72/100
-    10000/10000 [==============================] - 2s 190us/step - loss: 0.1524
-    Epoch 73/100
-    10000/10000 [==============================] - 2s 207us/step - loss: 0.1477
-    Epoch 74/100
-    10000/10000 [==============================] - 2s 211us/step - loss: 0.1457
-    Epoch 75/100
-    10000/10000 [==============================] - 2s 208us/step - loss: 0.1614
-    Epoch 76/100
-    10000/10000 [==============================] - 2s 242us/step - loss: 0.1489
-    Epoch 77/100
-    10000/10000 [==============================] - 3s 261us/step - loss: 0.1518
-    Epoch 78/100
-    10000/10000 [==============================] - 2s 232us/step - loss: 0.1523
-    Epoch 79/100
-    10000/10000 [==============================] - 2s 243us/step - loss: 0.1557
-    Epoch 80/100
-    10000/10000 [==============================] - 2s 215us/step - loss: 0.1462
-    Epoch 81/100
-    10000/10000 [==============================] - 2s 239us/step - loss: 0.1536
-    Epoch 82/100
-    10000/10000 [==============================] - 2s 228us/step - loss: 0.1539
-    Epoch 83/100
-    10000/10000 [==============================] - 2s 235us/step - loss: 0.1481
-    Epoch 84/100
-    10000/10000 [==============================] - 2s 208us/step - loss: 0.1563
-    Epoch 85/100
-    10000/10000 [==============================] - 2s 214us/step - loss: 0.1511
-    Epoch 86/100
-    10000/10000 [==============================] - 3s 253us/step - loss: 0.1516
-    Epoch 87/100
-    10000/10000 [==============================] - 2s 238us/step - loss: 0.1467
-    Epoch 88/100
-    10000/10000 [==============================] - 2s 202us/step - loss: 0.1522
-    Epoch 89/100
-    10000/10000 [==============================] - 2s 227us/step - loss: 0.1456
-    Epoch 90/100
-    10000/10000 [==============================] - 2s 236us/step - loss: 0.1406
-    Epoch 91/100
-    10000/10000 [==============================] - 2s 206us/step - loss: 0.1493
-    Epoch 92/100
-    10000/10000 [==============================] - 2s 220us/step - loss: 0.1450
-    Epoch 93/100
-    10000/10000 [==============================] - 2s 188us/step - loss: 0.1400
-    Epoch 94/100
-    10000/10000 [==============================] - 2s 191us/step - loss: 0.1451
-    Epoch 95/100
-    10000/10000 [==============================] - 2s 183us/step - loss: 0.1440
-    Epoch 96/100
-    10000/10000 [==============================] - 2s 184us/step - loss: 0.1484
-    Epoch 97/100
-    10000/10000 [==============================] - 2s 188us/step - loss: 0.1471
-    Epoch 98/100
-    10000/10000 [==============================] - 2s 184us/step - loss: 0.1450
-    Epoch 99/100
-    10000/10000 [==============================] - 2s 179us/step - loss: 0.1480
-    Epoch 100/100
-    10000/10000 [==============================] - 2s 187us/step - loss: 0.1441
-
-
-
 ```python
 plt.figure(figsize=(20, 3))
 plt.plot(hist.history['loss'])
@@ -445,7 +236,7 @@ plt.show()
 ```
 
 
-![png]({% include img_path.html a=page.path p="output_28_0.png" %})
+![png](output_28_0.png)
 
 
 
@@ -468,7 +259,7 @@ plt.show();
 ```
 
 
-![png]({% include img_path.html a=page.path p="output_29_0.png" %})
+![png](output_29_0.png)
 
 
 
@@ -487,7 +278,7 @@ plt.show();
 ```
 
 
-![png]({% include img_path.html a=page.path p="output_30_0.png" %})
+![png](output_30_0.png)
 
 
 # References

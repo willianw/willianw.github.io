@@ -60,13 +60,9 @@ var demo = (function (window) {
 
         _mapPolygons(pattern);
 
-        _bindCards();
-
-        _bindHashChange();
-
-        _triggerOpenCard('', _getHashFromURL(location.href));
-
         _toogleCV();
+
+        _setImagePath();
 
         _selectCategory();
 
@@ -108,214 +104,6 @@ var demo = (function (window) {
         $(SELECTORS.pattern).removeClass(CLASSES.patternHidden);
     };
 
-    /**
-     * Bind Card elements.
-     * @private
-     */
-    var _bindCards = function () {
-
-        var elements = $(SELECTORS.card);
-
-        $.each(elements, function (card, i) {
-
-            var instance = new Card(i, card);
-
-            layout[i] = {
-                card: instance
-            };
-
-            var $card = $(card);
-            $card.attr(ATTRIBUTES.index, i + '');
-
-            var cardImage = $card.find(SELECTORS.cardImage);
-            var cardClose = $card.find(SELECTORS.cardClose);
-
-            $(cardImage).on('click', function () {
-                location.hash = $card.attr(ATTRIBUTES.id);
-            });
-            $(cardClose).on('click', function () {
-                location.hash = '';
-            });
-        });
-    };
-
-    /**
-     * Create a sequence for the open or close animation and play.
-     * @param {boolean} isOpenClick Flag to detect when it's a click to open.
-     * @param {number} id The id of the clicked card.
-     * @private
-     *
-     */
-    var _playSequence = function (isOpenClick, id) {
-
-        var card = layout[id].card;
-
-        // Prevent when card already open and user click on image.
-        if (card.isOpen && isOpenClick) {
-            return;
-        }
-
-        // Create timeline for the whole sequence.
-        var sequence = new TimelineLite({paused: true});
-
-        var tweenOtherCards = _showHideOtherCards(id);
-
-        if (!card.isOpen) {
-            // Open sequence.
-
-            _setPatternBgImg($(this).find(SELECTORS.cardImage).find('image'));
-
-            sequence.add(tweenOtherCards);
-            sequence.add(card.openCard(_onCardMove), 0);
-
-        } else {
-            // Close sequence.
-
-            var closeCard = card.closeCard();
-            var position = closeCard.duration() * 0.8; // 80% of close card tween.
-
-            sequence.add(closeCard);
-            sequence.add(tweenOtherCards, position);
-        }
-
-        sequence.play();
-    };
-
-    /**
-     * Show/Hide all other cards.
-     * @param {number} id The id of the clcked card to be avoided.
-     * @private
-     */
-    var _showHideOtherCards = function (id) {
-
-        var TL = new TimelineLite;
-
-        var selectedCard = layout[id].card;
-
-        for (var i in layout) {
-
-            if (layout.hasOwnProperty(i)) {
-                var card = layout[i].card;
-
-                // When called with `openCard`.
-                if (card.id !== id && !selectedCard.isOpen) {
-                    TL.add(card.hideCard(), 0);
-                }
-
-                // When called with `closeCard`.
-                if (card.id !== id && selectedCard.isOpen) {
-                    TL.add(card.showCard(), 0);
-                }
-            }
-        }
-
-        return TL;
-    };
-
-    /**
-     * Add card image to pattern background.
-     * @param {Element} image The clicked SVG Image Element.
-     * @private
-     */
-    var _setPatternBgImg = function (image) {
-
-        var imagePath = $(image).attr('xlink:href');
-
-        $(SELECTORS.pattern).css('background-image', 'url(' + imagePath + ')');
-    };
-
-    /**
-     * Callback to be executed on Tween update, whatever a polygon
-     * falls into a circular area defined by the card width the path's
-     * CSS class will change accordingly.
-     * @param {Object} track The card sizes and position during the floating.
-     * @private
-     */
-    var _onCardMove = function (track) {
-
-        var radius = track.width / 2;
-
-        var center = {
-            x: track.x,
-            y: track.y
-        };
-
-        polygonMap.points.forEach(function (point, i) {
-
-            if (_detectPointInCircle(point, radius, center)) {
-                $(polygonMap.paths[i]).attr('class', CLASSES.polygon + ' ' + CLASSES.polygonHidden);
-            } else {
-                $(polygonMap.paths[i]).attr('class', CLASSES.polygon);
-            }
-        });
-    };
-
-    /**
-     * Detect if a point is inside a circle area.
-     * @private
-     */
-    var _detectPointInCircle = function (point, radius, center) {
-
-        var xp = point.x;
-        var yp = point.y;
-
-        var xc = center.x;
-        var yc = center.y;
-
-        var d = radius * radius;
-
-        return Math.pow(xp - xc, 2) + Math.pow(yp - yc, 2) <= d;
-    };
-
-    /**
-     * initialize page view according to hash
-     * @private
-     */
-    var _triggerOpenCard = function (fromId, toId) {
-        var getIndex = function (card) {
-            var index = $(card).attr(ATTRIBUTES.index);
-            return parseInt(index, 10);
-        };
-        if (fromId) {
-            var fromBlogCard = $('[' + ATTRIBUTES.id + '="' + fromId + '"]')[0];
-            if (fromBlogCard) {
-                _playSequence.call(fromBlogCard, false, getIndex(fromBlogCard));
-            }
-        }
-        if (toId) {
-            var toBlogCard = $('[' + ATTRIBUTES.id + '="' + toId + '"]')[0];
-            if (toBlogCard) {
-                _playSequence.call(toBlogCard, true, getIndex(toBlogCard));
-            }
-        }
-    };
-
-    var _getHashFromURL = function (url) {
-        var a = document.createElement('a');
-        a.href = url;
-        return a.hash.slice(1);
-    };
-
-    var _bindHashChange = function () {
-        // Workaround for event.newURL and event.oldURL for Internet Explorer
-        // source: https://developer.mozilla.org/en/docs/Web/API/WindowEventHandlers/onhashchange
-        //let this snippet run before your hashchange event binding code
-        if(!window.HashChangeEvent)(function(){
-            var lastURL=document.URL;
-            window.addEventListener("hashchange",function(event){
-                Object.defineProperty(event,"oldURL",{enumerable:true,configurable:true,value:lastURL});
-                Object.defineProperty(event,"newURL",{enumerable:true,configurable:true,value:document.URL});
-                lastURL=document.URL;
-            });
-        }());
-
-        window.addEventListener('hashchange', function (e) {
-            var newHash = _getHashFromURL(e.newURL);
-            var oldHash = _getHashFromURL(e.oldURL);
-            _triggerOpenCard(oldHash, newHash);
-        });
-    };
-
     var _toogleCV = function(){
         $('a#button-cv').on('click', function() {
             var CV = $('embed#cv');
@@ -333,6 +121,14 @@ var demo = (function (window) {
                 blogContent.css('display', 'block');
                 $('a#button-cv i, a#button-cv span').removeClass('cv-active');
             };
+        });
+    }
+
+    var _setImagePath = function() {
+        var image_path = $('body').name
+        $('.content p img').each(function(image, i) {
+            var src = image.attr('src');
+            image.attr('src', image_path+src)
         });
     }
 

@@ -1,5 +1,7 @@
 ---
 layout: compress
+title: Beyond Similarity
+description: Willian Werner's personal blog
 ---
 <!DOCTYPE html>
 <html lang="en" class="no-js">
@@ -8,14 +10,14 @@ layout: compress
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ site.title }}</title>
-    <meta name="description" content="{{ site.description }}"/>
+    <title>{{ page.title }}</title>
+    <meta name="description" content="{{ page.description }}"/>
     <meta name="keywords" content="{{ site.keywords }}"/>
     <meta name="author" content="{{ site.author }}"/>
-    <link rel="shortcut icon" href="img/favicon.png">
-    <link rel="stylesheet" type="text/css" href="css/normalize.css"/>
-    <link rel="stylesheet" type="text/css" href="css/all.css"/>
-    <link rel="stylesheet" type="text/css" href="css/modern-blog.css"/>
+    <link rel="shortcut icon" href="/img/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/css/normalize.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/all.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/modern-blog.css"/>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146140115-1"></script>
     <script>
@@ -99,8 +101,8 @@ layout: compress
     <header class="header">
         <h1>
             <img src="img/favicon.png"/>
-            {{ site.title }}
-            <span>{{ site.description }}</span>
+            {{ page.title }}
+            <span>{{ page.description }}</span>
         </h1>
     </header>
     <div class="content">
@@ -109,40 +111,35 @@ layout: compress
         <!-- cards -->
         <div class="wrapper">
             {% for post in site.posts %}
-            <div class="card" data-id="{{ post.id }}" category="{{ post.category | slugify }}">
-                <div class="card__container card__container--closed">
-                    <svg class="card__image" xmlns="http://www.w3.org/2000/svg"
-                         xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 1200"
-                         preserveAspectRatio="xMidYMid slice">
-                        <defs>
-                            <clipPath id="{{ post.id }}-clip-path">
-                                <polygon class="clip" points="0,1200 0,0 1920,0 1920,1200"></polygon>
-                            </clipPath>
-                        </defs>
-                        <image clip-path="url(#{{ post.id }}-clip-path)" width="1920" height="1200"
-                               xlink:href="{{ post.image }}"></image>
-                    </svg>
-                    <div class="card__content">
-                        <i class="card__btn-close fa fa-times"></i>
-                        <div class="card__caption">
-                            <p class="card__tags">
-                                {% for tag in post.tags %}
-                                    <span>{{ tag }}</span>
-                                {% endfor %}
-                            </p>
-                            <h2 class="card__title">{{ post.title }}</h2>
-                            <p class="card__subtitle">{{ post.subtitle }}</p>
-                        </div>
-                        <div class="card__copy">
-                            <div class="meta">
-                                <span class="meta__category">{{ post.category | capitalize }}</span>
-                                <span class="meta__date">{{ post.date | date: "%Y-%m-%d" }}</span>
+            <a href="{{ post.url }}">
+                <div class="card" data-id="{{ post.id }}" category="{{ post.category | slugify }}">
+                    <div class="card__container card__container--closed">
+                        <svg class="card__image" xmlns="http://www.w3.org/2000/svg"
+                            xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 1200"
+                            preserveAspectRatio="xMidYMid slice">
+                            <defs>
+                                <clipPath id="{{ post.id }}-clip-path">
+                                    <polygon class="clip" points="0,1200 0,0 1920,0 1920,1200"></polygon>
+                                </clipPath>
+                            </defs>
+                            <image clip-path="url(#{{ post.id }}-clip-path)" width="1920" height="1200"
+                                xlink:href="/img/posts/{{ post.path | remove: '.md' | split: '/' | last }}/{{ post.image }}"></image>
+                        </svg>
+                        <div class="card__content">
+                            <i class="card__btn-close fa fa-times"></i>
+                            <div class="card__caption">
+                                <p class="card__tags">
+                                    {% for tag in post.tags %}
+                                        <span>{{ tag }}</span>
+                                    {% endfor %}
+                                </p>
+                                <h2 class="card__title">{{ post.title }}</h2>
+                                <p class="card__subtitle">{{ post.subtitle }}</p>
                             </div>
-                            {{ post.content }}
                         </div>
                     </div>
                 </div>
-            </div>
+            </a>
             {% endfor %}
             <!-- /cards -->
         </div>
@@ -154,7 +151,6 @@ layout: compress
 <script src="js/vendors/TweenMax.min.js"></script>
 <script src="js/vendors/ScrollToPlugin.min.js"></script>
 <script src="js/vendors/cash.min.js"></script>
-<script src="js/card-modern-blog.js"></script>
 <script src="js/modern-blog.js"></script>
 </body>
 </html>

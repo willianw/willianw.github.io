@@ -2,7 +2,7 @@
 title:  "Elegant Contradiction in Thermal Expansion Law"
 subtitle: "Sometimes a model is just a prediction tool; you can't extract any underlying truth from it"
 category: "Physics"
-image: "img/posts/2019-08-11-elegant-contradiction-in-thermal-expansion-law/cover.jpeg"
+image: "cover.jpeg"
 tags: ["Deep"]
 ---
 
@@ -42,14 +42,14 @@ $\cdots$
 At the end of last step, $\mathcal{L} = \ell_0 \left( 1 + \alpha\cdot\frac{\Delta T}{n} \right)^n$.
 This is what the above expression looks like:
 
-![png](img/posts/2019-08-11-elegant-contradiction-in-thermal-expansion-law/graph1.png)
+![png](graph1.png)
 
 **Homework**: do you remember from calculus lessons what happens to $\mathcal{L}$ as $n\rightarrow\infty$? *ANS:* becomes exponential, i.e., $\ell_0 \cdot e^{\alpha\Delta T}$. Surprised? Because I'm not...
 
 ### Explanation
 The problem is with $\alpha$. Saying $\alpha$ is constant means that matter is eternally extensible. If you've played with a rubber band you know there's a limit for elasticity. The following graph is famous in materials sciences and describes this phenomena:
 
-![png](img/posts/2019-08-11-elegant-contradiction-in-thermal-expansion-law/graph2.jpg)
+![png](graph2.jpg)
 
 The plastic region threshold has to do with the average distance between molecules. If you start to put molecules too much away, their coesion forces weaken, and matter becomes irreversibly deformed. If average distance still increases, fracture happens.
 

@@ -2,9 +2,8 @@
 title:  "Introduction"
 subtitle: "About the blog"
 category: "News"
-image: "img/intro.png"
+image: "intro.png"
 tags: ["tutorial"]
-date:   2019-07-01
 ---
 
 # Hi Everyone!

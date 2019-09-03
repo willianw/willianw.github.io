@@ -2,7 +2,7 @@
 title:  "The dog and rabbit chase"
 subtitle: "Never thought it was so difficult to catch a rabbit"
 category: "Physics"
-image: "/img/posts/2019-08-23-dog-and-rabbit/cover.jpg"
+image: "cover.jpg"
 tags: ["challenge"]
 ---
 
