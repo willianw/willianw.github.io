@@ -1,17 +1,10 @@
 ---
 title:  "Risk and uncertainty for deep learning"
-subtitle: "I need to commit last updates made in my other computer"
+subtitle: "Ok, you've got your results. But how dispersive will your predictions be?"
 image: "cover.png"
 category: "Machine Learning"
 tags: ["notebook"]
 ---
-
-```python
-import matplotlib.pyplot as plt
-import seaborn as sns
-import numpy as np
-plt.style.use('bmh') 
-```
 
 # Risk vs. Uncertainty
 
@@ -33,7 +26,6 @@ $$
 
 in which $\mathcal{H}$ stands for [Heaviside function](https://en.wikipedia.org/wiki/Heaviside_step_function)
 
-
 ```python
 def data_generator(size):
     _x = np.sort(np.random.normal(0, 1, int(size)))
@@ -42,11 +34,9 @@ def data_generator(size):
     return _x, eps, _y
 ```
 
-
 ```python
 x, eps, y = data_generator(2000)
 ```
-
 
 ```python
 plt.figure(figsize=(20, 5))
@@ -58,10 +48,7 @@ plt.legend()
 plt.show();
 ```
 
-
 ![png](output_7_0.png)
-
-
 
 ```python
 plt.figure(figsize=(20, 5))
@@ -74,14 +61,7 @@ plt.legend()
 plt.show();
 ```
 
-    /home/willian/notebooks_env/risk-and-uncertainty-deep-learning/env/lib/python3.7/site-packages/seaborn/distributions.py:323: MatplotlibDeprecationWarning: Saw kwargs ['c', 'color'] which are all aliases for 'color'.  Kept value from 'color'.  Passing multiple aliases for the same property will raise a TypeError in 3.3.
-      ax.plot(x, y, color=color, label=label, **kwargs)
-
-
-
 ![png](output_8_1.png)
-
-
 
 ```python
 plt.subplots(1, 3, figsize=(20, 3))
@@ -97,12 +77,9 @@ plt.title('Distribution of $y$')
 plt.show();
 ```
 
-
 ![png](output_9_0.png)
 
-
 ## Simple Regression
-
 
 ```python
 def generate_simple_model():
@@ -115,29 +92,12 @@ def generate_simple_model():
     return m
 ```
 
-
 ```python
 x, _, y = data_generator(10000)
 simple_model = generate_simple_model()
 simple_model.compile(loss='mse', optimizer='adam')
 hist = simple_model.fit(x, y, epochs=40, verbose=0)
 ```
-
-    WARNING: Logging before flag parsing goes to stderr.
-    W0803 12:08:18.915856 140027329709824 deprecation_wrapper.py:119] From /home/willian/notebooks_env/risk-and-uncertainty-deep-learning/env/lib/python3.7/site-packages/keras/backend/tensorflow_backend.py:74: The name tf.get_default_graph is deprecated. Please use tf.compat.v1.get_default_graph instead.
-    
-    W0803 12:08:21.801052 140027329709824 deprecation_wrapper.py:119] From /home/willian/notebooks_env/risk-and-uncertainty-deep-learning/env/lib/python3.7/site-packages/keras/backend/tensorflow_backend.py:517: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
-    
-    W0803 12:08:22.263403 140027329709824 deprecation_wrapper.py:119] From /home/willian/notebooks_env/risk-and-uncertainty-deep-learning/env/lib/python3.7/site-packages/keras/backend/tensorflow_backend.py:4138: The name tf.random_uniform is deprecated. Please use tf.random.uniform instead.
-    
-    W0803 12:08:23.255626 140027329709824 deprecation_wrapper.py:119] From /home/willian/notebooks_env/risk-and-uncertainty-deep-learning/env/lib/python3.7/site-packages/keras/optimizers.py:790: The name tf.train.Optimizer is deprecated. Please use tf.compat.v1.train.Optimizer instead.
-    
-    W0803 12:08:25.062922 140027329709824 deprecation_wrapper.py:119] From /home/willian/notebooks_env/risk-and-uncertainty-deep-learning/env/lib/python3.7/site-packages/keras/backend/tensorflow_backend.py:986: The name tf.assign_add is deprecated. Please use tf.compat.v1.assign_add instead.
-    
-    W0803 12:08:25.472660 140027329709824 deprecation_wrapper.py:119] From /home/willian/notebooks_env/risk-and-uncertainty-deep-learning/env/lib/python3.7/site-packages/keras/backend/tensorflow_backend.py:973: The name tf.assign is deprecated. Please use tf.compat.v1.assign instead.
-    
-
-
 
 ```python
 plt.figure(figsize=(20, 3))
@@ -149,11 +109,9 @@ plt.ylim(0)
 plt.show()
 ```
 
-
 ```python
 _y = simple_model.predict(x)
 ```
-
 
 ```python
 plt.figure(figsize=(20, 5))
@@ -166,18 +124,47 @@ plt.legend()
 plt.show();
 ```
 
-# Methods
+# Strategies for output distribution
+In all the following cases, there are some parameters $\theta$ (model parameters, such as the neural network weights), and some data $D = \{x, y\}$. For output distribution, we need to know $P(\theta\mid D)$, i.e., the probability of having such weights given the data. By Bayes Theorem, we have
 
-- variational inference
+![png](bayes.png)
+
+Generally, the last integral is either difficult or expensive to calculate. So the following methods will be able to approximate the posterior distribution.
+
+- Variational Inference
 - Monte Carlo Dropout
-- BOOTStRAP
+- BOOTSTRAP
 
 ## Markov chain Monte Carlo – Metropolis-Hastings
 
+Markov chain Monte Carlo (MCMC) is a group of methods to generate a sample from a unknown distribution. They combine Monte Carlo techniques for sampling from a generated distribution and Markov chains to calculate the probability of each value in the distribution.
+Between MCMC methods, the most famous is Metropolis-Hastings, represented by the following algorithm:
+
+1. Get a base distribution $f$ and a candidate distribution $g$. Generally $f$ is the product $P(D\mid \theta)P(\theta)$, which is well known; as $g$ is a simple distribution (such as gaussian). As we iterate, $g$ will accumulate more samples, and become more similar to $P(\theta\mid D)$
+2. For each iteration t:
+    1. we have $x_t$ as the previous sample from $g$
+    2. get a sample $x$ from $g(x\mid x_t)$
+    3. calculate the acceptance ratio $\alpha = f(x)/f(x_t)$. It gives an idea of how probable $x$ is among the previously gathered samples.
+    4. with probability $\alpha$, insert $x$ to the gathered samples. Else reinsert the previous sample $x_t$.
+
+This algorithm is proven to asymptotically approximate $P(\theta\mid D)$. However, it is still extremely expensive computationally, being sometimes infeasible. For that reason, I wasn't able to compute this algorithm for a DNN (because it has many parameters). So, I've changed the model to a 3-degree polinomial. I've also used a framework called pymc3, for applying Monte Carlo methods. Obs.: as we use Metropolis-Hastings, the sample function doesn't get just samples, it updates the parameter values (analogous to a fit method).
 
 ```python
+polynoms_n = range(10)
+with pm.Model() as model:
+    # Priors
+    theta = [pm.Normal(f'theta_{i}', 0, sigma=20) for i in polynoms_n]
 
+    # Likelihood
+    likelihood = pm.Normal('y', sum([theta[i] * x ** i for i in polynoms_n]),
+                        sigma=1, observed=y)
+    # Inference!
+    trace = pm.sample(10000, cores=3, step=pm.Metropolis())
 ```
+
+![png](mcmc_params.png)
+
+![png](mcmc_results.png)
 
 ## Variational Inference
 
@@ -191,17 +178,51 @@ $$= \frac{p(Y \mid w, X) \cdot p(w \mid Y)}{p(X \mid Y)}$$
 
 Given two distributions, $p$ and $q$, we can establish the following similarity [quasimeasure](https://en.wikipedia.org/wiki/Kullback%E2%80%93Leibler_divergence):
 
-$$
-\begin{align}
-KL(q  \Vert  p) = \sum_{x}&q(x)\log\left[\frac{q(x)}{p(x)}\right], \qquad\text{Discrete case}\\
-KL(q  \Vert  p) = \int_{-\infty}^\infty &q(x)\log\left[\frac{q(x)}{p(x)}\right]dx, \qquad\text{Continuous case}\\
-\end{align}
-$$
+![png](kl.png)
 
 It's important to tell that it's not completely a distance measure, since $KL(q  \Vert  p) \neq KL(p  \Vert  q)$.
 
+```python
+def variational_network(X_train, y_train):
+    # Initialize random weights between each layer
+    hidden_shape = (X_train.shape[1], 1000, 100, 10, 1)
+    layers_init = [
+        np.random.randn(hidden_shape[i], hidden_shape[i+1]).astype(float)
+        for i in range(len(hidden_shape)-1)
+    ]
+    with pm.Model() as neural_network:
+        model_input = theano.shared(X_train)
+        model_output = theano.shared(y_train)
+        layers = [model_input]
+        for i, layer in enumerate(layers_init):
+            weights = pm.Normal(f'w_{i+1}', 0, sigma=1,
+                                shape=layer.shape,
+                                testval=layer)
+            layers.append(weights)
+        act = layers[0]
+        for layer in layers[1:]:
+            act = pm.math.sigmoid(pm.math.dot(act, layer))
+
+        output = pm.Normal('out',
+                           act, sigma=1,
+                           observed=model_output,
+                           total_size=y_train.shape[0]
+                          )
+    return model_input, model_output, neural_network
+
+model_input, model_output, neural_network = variational_network(X_train, y_train)
+```
+
+![png](vi_results.png)
+
+Pretty bad, huh? That's because
+
+1. the DNN isn't well optimized, it would take more several training steps to get accurate;
+2. variational inference is susceptible to get stuck in local optima.
+
 ## Monte-Carlo Dropout
 
+Methods #1 #2, although not working well for DL, are well consolidated for little data (standard statistics). In 2016, this paper showed that using dropout in every layer at prediction time is a guaranteed way to determine uncertainty, i.e., is equivalent to a Monte Carlo process.
 
 ```python
 def generate_dropout_model():
@@ -216,7 +237,6 @@ def generate_dropout_model():
     m = Model(i, o)
     return m
 ```
-
 
 ```python
 x, _, y = data_generator(10000)
@@ -235,10 +255,7 @@ plt.ylim(0)
 plt.show()
 ```
 
-
 ![png](output_28_0.png)
-
-
 
 ```python
 preds = []
@@ -258,10 +275,7 @@ plt.legend()
 plt.show();
 ```
 
-
 ![png](output_29_0.png)
-
-
 
 ```python
 mean = predictions.mean(axis=0).flatten()
@@ -277,9 +291,80 @@ plt.legend()
 plt.show();
 ```
 
-
 ![png](output_30_0.png)
 
+# Application — Predicting Car price Distribution
+
+I've used a [Kaggle dataset](https://www.kaggle.com/avikasliwal/used-cars-price-prediction) that contains a list of used cars, its prices, and features as power, how many times the car was sold, mileage, etc. Here is some preprocessing:
+
+```python
+# Fuel
+df = pd.get_dummies(df, columns=['Fuel_Type'], prefix='fuel_')
+
+# Transmission
+df['Manual'] = (df['Transmission'] == 'Manual').astype(int)
+
+# Owner type (first, second, ...)
+df['Owner_Type'] = df['Owner_Type'].map({'First': 1, 'Second': 2, 'Third': 3}).fillna(4)
+
+# Mileage
+df['Mileage'] = df['Mileage'].apply(process_mileage)
+df['Mileage'] = df['Mileage'].fillna(df['Mileage'].mean())
+
+# Engine
+df['Engine'] = df['Engine'].astype('str').str.extract('(\d+)')[0].astype('float')
+df['Engine'] = df['Engine'].fillna(df['Engine'].mean())
+
+# Power
+df['Power'] = df['Power'].astype('str').str.extract('(\d+)')[0].astype('float')
+df['Power'] = df['Power'].fillna(df['Power'].mean())
+
+# Seats
+df['Seats'] = df['Seats'].fillna(df['Seats'].median())
+
+# Drop others
+df.drop(['Name', 'Location', 'New_Price', 'Transmission'], axis=1, inplace=True)
+```
+
+And then we train using the following model:
+
+```python
+def generate_dropout_model(input_shape):
+    i = Input((input_shape,))
+    x = Dense(1024, kernel_initializer='normal', activation='relu')(i)
+    x = Dropout(0.1)(x, training=True)
+    x = Dense(512, kernel_initializer='normal', activation='relu')(x)
+    x = Dropout(0.1)(x, training=True)
+    x = Dense(256, kernel_initializer='normal', activation='relu')(x)
+    x = Dropout(0.1)(x, training=True)
+    x = Dense(128, kernel_initializer='normal', activation='relu')(x)
+    x = Dropout(0.1)(x, training=True)
+    x = Dense(64, kernel_initializer='normal', activation='relu')(x)
+    x = Dropout(0.1)(x, training=True)
+    x = Dense(32, kernel_initializer='normal', activation='relu')(x)
+    x = Dropout(0.1)(x, training=True)
+    o = Dense(1, kernel_initializer='normal', activation='linear')(x)
+    m = Model(i, o)
+    return m
+```
+
+![png](training_hist.png)
+
+## Results
+
+Here are some predicted values distributions. We get a sample from the model with price predictions outputs. Then we check it vs. the real price predicted.
+
+![png](results1.png)
+
+![png](results2.png)
+
+![png](results3.png)
+
+# Conclusion
+There are several (some not so good) more approaches for estimating uncertainty not discussed here, some of them useful for deep learning too.
+You can check the complete code in the link below!
+
+{% include repo.html name='risk-and-uncertainty-deep-learning'  %}
 
 # References
 
@@ -299,9 +384,4 @@ plt.show();
 - http://proceedings.mlr.press/v37/salimans15.pdf
 - https://www.cs.ubc.ca/~schmidtm/Courses/540-W18/L34.pdf
 - http://bayesiandeeplearning.org/2016/papers/BDL_4.pdf  
-- https://towardsdatascience.com/uncertainty-estimation-for-neural-network-dropout-as-bayesian-approximation-7d30fc7bc1f2  
-
-
-```python
-
-```
+- https://towardsdatascience.com/uncertainty-estimation-for-neural-network-dropout-as-bayesian-approximation-7d30fc7bc1f2 

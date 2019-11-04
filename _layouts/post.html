@@ -12,8 +12,34 @@ layout: compress
     <meta name="keywords" content="{{ page.tags }}"/>
     <meta name="author" content="{{ site.author }}"/>
     <link rel="shortcut icon" href="/img/favicon.png">
+    <link rel="stylesheet" type="text/css" href="/css/all.css"/>
     <link rel="stylesheet" type="text/css" href="/css/post.css"/>
-    <link rel="stylesheet" type="text/css" href="/css/prism.css"/>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.16.2/build/styles/agate.min.css">
+    
+
+    <!-- JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146140115-1"></script>
+    <script src="/js/vendors/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-146140115-1');
+    </script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+          tex2jax: {
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+            jax: ["input/TeX","output/NativeMML"],
+            displayMath: [ ['$$','$$'] ],
+            inlineMath: [['$','$']],
+          }
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+    
 
     <title>{{ page.title }}</title>
 </head>
@@ -21,6 +47,7 @@ layout: compress
 {% capture img_path %}/img/posts/{{ page.relative_path | remove: '.md' | split: '/' | last }}/{% endcapture %}
 
 <body class="body" name="{{ img_path }}" style="background-image: url({{ img_path }}{{ page.image }});">
+    <div id="full"></div>
     <div class="container">
         <div class="header">
             <a href="/"><h1>Beyond Similarity</h1></a>
@@ -34,27 +61,10 @@ layout: compress
         </div>
     <!-- /container -->
     </div>
-    <!-- JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-146140115-1"></script>
+
     <script src="/js/vendors/trianglify.min.js"></script>
-    <script src="/js/vendors/prism.js"></script>
-    <script src="/js/post.js"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-146140115-1');
-    </script>
-    <script type="text/x-mathjax-config">
-        MathJax.Hub.Config({
-          tex2jax: {
-            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
-            displayMath: [ ['$$','$$'] ],
-            inlineMath: [['$','$']],
-          }
-        });
-    </script>
+    <script src="/js/modern-blog-post.js"></script>
+    <script src="/js/vendors/gh-cards.js"></script>
+
 </body>
 </html>

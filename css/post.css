@@ -1,36 +1,65 @@
 :root {
     --theme-color: #333333;
+    --white: #FFFFFF;
 }
 
-@import url('https://fonts.googleapis.com/css?family=Fira+Sans|Lato|Nunito&display=swap');
+@font-face {
+    font-family: "Computer Modern";
+    src: url('../webfonts/Computer_Modern/cmunrm.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: "Crimson Text";
+    src: url('../webfonts/Crimson_Text/CrimsonText-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: "Crimson Text";
+    src: url('../webfonts/Crimson_Text/CrimsonText-Regular.ttf') format('truetype');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "Lato";
+    src: url('../webfonts/Lato/Lato-Bold.ttf') format('truetype');
+    font-weight: 700;
+}
 
 body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
     color: var(--theme-color);
-    font-family: 'Nunito', 'Muli', 'Quicksand', sans-serif;
+    font-family: 'Computer Modern', serif;
+    font-size: 12pt;
     font-weight: 400;
     padding: 0;
     margin: 0;
 }
 
 h1 {
-    font-family: 'Lato', 'Rosario', 'Molengo', sans-serif;
+    font-family: 'Crimson Text', serif;
+    font-weight: 700;
 }
 
 h2, h3, h4, h5, h6 {
-    font-family: 'Fira sans', 'Palanquin', 'Metrophobic', 'Heebo', sans-serif;
+    font-family: 'Crimson Text', serif;
+    font-weight: 600;
 }
 
 p {
     text-align: justify;
 }
 
+blockquote {
+    font-style: italic;
+}
+
 /* Header */
 .header {
-    background-color: #333333;
-    color: #FFFFFF;
+    background-color: var(--theme-color);
+    color: white;
     padding: 1% 5%;
 }
 
@@ -40,7 +69,24 @@ p {
 }
 
 .header h1 {
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
     margin: 1%;
+}
+
+/* Full size image div*/
+div#full {
+    background-color: white;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: contain;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    display: none;
 }
 
 /* Header Title */
@@ -50,6 +96,9 @@ header {
 }
 
 header h1{
+    font-family: 'Crimson Text', serif;
+    font-weight: 400;
+    font-size: 3em;
     color: #000000;
     margin-bottom: 0;
 }
@@ -68,21 +117,26 @@ header span{
 }
 
 .content {
-    background-color: #FFFFFF;
-    margin: 0 25%;
+    background-color: white;
+    margin: 0 20%;
     padding: 1% 5%;
 }
 
 div.highlight {
-    margin: 1% 10%;
+    font-size: 0.8em;
+    margin: 1% 0;
 }
 
 /* Image */
 .content img {
-    border: solid 1px #C8C8C8;
     max-width: 100%;
     display: block;
+    padding: 3em 0;
     margin: auto;
+}
+
+img:hover {
+    background-color: #AAAAAA;
 }
 
 /* Code */
@@ -94,11 +148,16 @@ pre.highlight {
 
 .dataframe {
     width:100%;
-    box-sizing: border-box;
+    box-sizing: content-box;
     border-collapse: collapse;
     border:1px solid #EEEEEE;
-    margin: 1%;
-    overflow-y: auto;
+    margin: 0;
+    overflow-x: auto;
+    display: grid;
+}
+
+div:has(.dataframe) {
+    overflow-x: auto;
 }
 
 .dataframe thead {
@@ -124,4 +183,65 @@ pre.highlight {
     padding: 1% 0.5%;
 	flex: 1 1 20%;
     border: none;
+}
+
+/* Github Card */
+.gh h1 {
+    display: block;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+.gh a, .gh a:visited {
+    text-decoration: none;
+    color: black;
+}
+
+.gh-small {
+    zoom: 0.5;
+}
+
+.gh-medium {
+    zoom: 0.75;
+}
+
+.gh-large {
+    zoom: 1;
+}
+.gh-card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    max-width: 60%;
+    margin: auto;
+    display: block;
+    border-radius: 5px;
+}
+
+.gh-card:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.gh.container > a {
+    font-size: 2em;
+    margin-right: 2em;
+    display: inline-block;
+}
+
+img.gh {
+    border-radius: 5px 5px 0 0;
+    clip-path: polygon(100% 0, 100% 95%, 50% 100%, 0% 95%, 0 0);
+}
+
+.gh.container {
+    padding: 16px;
+    text-align: center;
+}
+
+.gh p {
+    display: block;
+    text-align: center;
+    font-size: 1.6em;
+    line-height: 1.6;
+    margin: 1em 0;
 }

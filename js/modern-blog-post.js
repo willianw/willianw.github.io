@@ -16,23 +16,40 @@ var load = (function (window) {
 
         _setImagePath();
 
+        _fullSizeImages();
+
+        _repositoryCover();
+
     };
 
     var _setImagePath = function() {
         var image_path = $('body').attr('name');
-        $('.content img').each(function(i, image) {
+        $('.content p img').each(function(i, image) {
             var src = $(image).attr('src');
             $(image).attr('src', image_path+src)
         });
     }
 
-    // Expose methods.
+    var _fullSizeImages = function() {
+        $('img').click(function() {
+            var src = $(this).attr('src');
+            var body_img = $('body').css('background-image');
+            $('div#full').css('background-image', 'url(' + src + ')');
+            $('div#full').css('display', 'block');
+        });
+        $('div#full').click(function() {
+            $(this).css('display', 'none');
+        });
+    };
+
+    var _repositoryCover = function() {
+        $('.gh-card').attr('data-image', $('body').css('background-image').slice(5, -2))
+    };
+
     return {
         init: init
     };
 
 })(window);
-
-// Kickstart
 
 window.onload = load.init;

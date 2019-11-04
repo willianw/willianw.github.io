@@ -27,7 +27,11 @@ $$
 
 ### Here things starts becoming strange...
 Curious, huh? That doesn't seem to be like that first equation...
-That is because we've made a different process. By integration, we change a thermal expansion $T_0 \rightarrow T_1$ for a sequence of several (a.k.a infinite) tiny thermal expansions $T_0,\ T_0 + \delta T,\ T_0+2\delta T,\ \overbrace{\dots}^\infty, T_1-\delta T,\ T_1$. Since the function $\ell$ depends on the path of its arguments, we say that this function is **not conservative**.
+That is because we've made a different process. By integration, we change a thermal expansion $T_0 \rightarrow T_1$ for a sequence of several (a.k.a infinite) tiny thermal expansions
+
+$$T_0,\ T_0 + \delta T,\ T_0+2\delta T,\ \overbrace{\dots}^\infty,\ T_1-\delta T,\ T_1$$
+
+Since the function $\ell$ depends on the path of its arguments, we say that this function is **not conservative**.
 Even so, that's very strange for a physical quantity as width. This means, for example, that if you heat a bar from $T_0$ to $T_1$ at once, then cool it first from $T_1$ to $T_{0.5}$, and then from $T_{0.5}$ to $T_0$, the bar will not come back to the same width.
 
 ### Mathematically

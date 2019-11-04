@@ -306,17 +306,19 @@ a:focus {
 	font-size: 3em;
 	font-weight: 400;
 	line-height: 1.2;
-	margin: .5em 0 0;
+	margin: .5em;
+	display: inline-block;
+	width: max-content;
 }
 
-.header h1 span {
-	font-size: .45em;
-	display: block;
-	padding: .5em 0 1em;
+.header span {
+	font-size: 1em;
+	display: contents;
 	color: #4f4c4c;
 }
 
 .header img {
+	display: inline-block;
     width: 0.9em;
 }
 
@@ -412,7 +414,6 @@ img#profile_photo {
 }
 
 #button-cv * {
-    display: table-cell;
     vertical-align: middle;
 }
 

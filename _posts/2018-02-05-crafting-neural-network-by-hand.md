@@ -642,7 +642,7 @@ hyperp.sort_values(by='accuracy', ascending=False).head()
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
-      <th></th>
+      <th>#</th>
       <th>ds_volume</th>
       <th>threshold</th>
       <th>layers</th>

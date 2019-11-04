@@ -67,6 +67,8 @@ var demo = (function (window) {
         _selectCategory();
 
         _paintThemeColor();
+
+        _fullSizeImages();
     };
 
     /**
@@ -122,18 +124,18 @@ var demo = (function (window) {
                 $('a#button-cv i, a#button-cv span').removeClass('cv-active');
             };
         });
-    }
+    };
 
     var _setImagePath = function() {
-        var image_path = $('body').name
+        var image_path = $('body').name;
         $('.content p img').each(function(image, i) {
             var src = image.attr('src');
-            image.attr('src', image_path+src)
+            image.attr('src', image_path+src);
         });
-    }
+    };
 
     var _selectCategory = function() {
-        $('.categories a').on("click", function(){
+        $('.categories a').on('click', function(){
             var category = this.name;
             $('.content .card').each(function(post, i) {
                 if ($(post).attr('category').includes(category)) {
@@ -144,15 +146,25 @@ var demo = (function (window) {
             });
         })
 
-    }
+    };
 
     var _paintThemeColor = function() {
-        var triangles = $("div.pattern path")
-        var color = $(triangles[triangles.length - 1]).css('stroke')
+        var triangles = $('div.pattern path');
+        var color = $(triangles[triangles.length - 1]).css('stroke');
 
         // Paint things with selected color
-        $("div.sidebar hr").css("border-color", color)
-    }
+        $('div.sidebar hr').css('border-color', color);
+    };
+
+    var _fullSizeImages = function() {
+        $('img').on('click', function() {
+            var src = this.attr('src');
+            $('div#full')
+                .css('background-image', 'url(' + src + ') no-repeat center')
+                .css('display', 'block');
+            $('body').css('display', 'None');
+        });
+    };
 
     // Expose methods.
     return {
