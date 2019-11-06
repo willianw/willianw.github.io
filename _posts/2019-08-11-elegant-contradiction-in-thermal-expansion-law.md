@@ -3,7 +3,7 @@ title:  "Elegant Contradiction in Thermal Expansion Law"
 subtitle: "Sometimes a model is just a prediction tool; you can't extract any underlying truth from it"
 category: "Physics"
 image: "cover.jpeg"
-tags: ["Deep"]
+tags: ["investigation"]
 ---
 
 Do you remember thermal expansion? You might say that in a hotter day, a train rail will be longer than in a colder day.

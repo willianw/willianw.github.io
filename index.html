@@ -47,11 +47,11 @@ description: Willian Werner's personal blog
 </head>
 <body class="body">
 <div class="sidebar">
-    <header class="header" style="color: #FFFFFF;">
-        <p id='name'>Willian Werner A. Costa</p>
-        <p id="description">
-            Bachelor of Computer Engineering at Escola Politécnica da USP
-        </p>
+    <nav class='top'>
+        <h4 id='name'>Willian Werner A. Costa</h4>
+        <h6 id="description">
+            B.E. of Computer Eng. at USP
+        </h6>
         <img src="img/profile.jpg" id="profile_photo">
         <nav class="links">
             <a data-toggle="tooltip" data-placement="bottom" title="Kaggle" href="https://www.kaggle.com/willianw">
@@ -74,10 +74,11 @@ description: Willian Werner's personal blog
                 <span>Resume/CV</span>
             </a>
         </nav>
-        <hr/>
-    </header>
-    <nav class="categories">
+    </nav>
+    <nav class="middle">
         <h2><a href="#" name="">Categories</a></h2>
+    </nav>
+    <nav class="categories">
         <table>
         {% for count_with_cat in counts_with_cats %}
             {% assign cat = count_with_cat | split:":" | last %}
@@ -95,6 +96,7 @@ description: Willian Werner's personal blog
         {% endfor %}
         </table>
     </nav>
+    <nav class="bottom"></nav>
 </div>
 <embed id="cv" src="assets/CV.pdf" type="application/pdf"/>
 <div class="container">
@@ -112,32 +114,15 @@ description: Willian Werner's personal blog
         <div class="wrapper">
             {% for post in site.posts %}
             <a href="{{ post.url }}">
-                <div class="card" data-id="{{ post.id }}" category="{{ post.category | slugify }}">
-                    <div class="card__container card__container--closed">
-                        <svg class="card__image" xmlns="http://www.w3.org/2000/svg"
-                            xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1920 1200"
-                            preserveAspectRatio="xMidYMid slice">
-                            <defs>
-                                <clipPath id="{{ post.id }}-clip-path">
-                                    <polygon class="clip" points="0,1200 0,0 1920,0 1920,1200"></polygon>
-                                </clipPath>
-                            </defs>
-                            <image clip-path="url(#{{ post.id }}-clip-path)" width="1920" height="1200"
-                                xlink:href="/img/posts/{{ post.path | remove: '.md' | split: '/' | last }}/{{ post.image }}"></image>
-                        </svg>
-                        <div class="card__content">
-                            <i class="card__btn-close fa fa-times"></i>
-                            <div class="card__caption">
-                                <p class="card__tags">
-                                    {% for tag in post.tags %}
-                                        <span>{{ tag }}</span>
-                                    {% endfor %}
-                                </p>
-                                <h2 class="card__title">{{ post.title }}</h2>
-                                <p class="card__subtitle">{{ post.subtitle }}</p>
-                            </div>
-                        </div>
+                <div class="card" data-id="{{ post.id }}" category="{{ post.category | slugify }}"
+                    style="background-image: url('/img/posts/{{ post.path | remove: '.md' | split: '/' | last }}/{{ post.image }}')">
+                    <div class="card__tags">
+                        {% for tag in post.tags %}
+                            <div>{{ tag | downcase }}</div>
+                        {% endfor %}
                     </div>
+                    <div class="card__title"><p>{{ post.title }}</p></div>
+                    <div class="card__subtitle">{{ post.subtitle }}</div>
                 </div>
             </a>
             {% endfor %}

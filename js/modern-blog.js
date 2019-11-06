@@ -135,7 +135,7 @@ var demo = (function (window) {
     };
 
     var _selectCategory = function() {
-        $('.categories a').on('click', function(){
+        $('.categories a, .middle a').on('click', function(){
             var category = this.name;
             $('.content .card').each(function(post, i) {
                 if ($(post).attr('category').includes(category)) {
@@ -149,11 +149,36 @@ var demo = (function (window) {
     };
 
     var _paintThemeColor = function() {
-        var triangles = $('div.pattern path');
-        var color = $(triangles[triangles.length - 1]).css('stroke');
-
-        // Paint things with selected color
-        $('div.sidebar hr').css('border-color', color);
+        var getColor = function(color) {
+            return color
+                .slice(4, -1)
+                .split(', ')
+                .map(function(i){return i / 255;});
+        };
+        var colors = Array.from($('div.pattern path'))
+            .map(function(i) {return $(i).css('stroke')});
+        var maxmins = colors.map(function(color, i) {
+            const rgb = getColor(color);
+            const max = Math.max(...rgb);
+            const min = Math.min(...rgb);
+            return [min, max]
+        });
+        var ls = maxmins.map(function(mm, i) {
+            const L = (mm[0] + mm[1])/2;
+            return (L > 0.80)? 0: L;
+        });
+        var sats = maxmins.map(function(mm, i) {
+            const L = (mm[1] + mm[0]) / 2;
+            return (L === 0 || L === 1)
+                ? 0
+                : (mm[1] - mm[0])/(1 - Math.abs(2 * L - 1));
+        });
+        var bst = sats.indexOf(Math.max(...sats));
+        var lit = ls.indexOf(Math.max(...ls));
+        
+        document.documentElement.style.setProperty('--theme-mid', colors[colors.length/2>>0]);
+        document.documentElement.style.setProperty('--theme-sat', colors[bst]);
+        document.documentElement.style.setProperty('--theme-lit', colors[lit]);
     };
 
     var _fullSizeImages = function() {

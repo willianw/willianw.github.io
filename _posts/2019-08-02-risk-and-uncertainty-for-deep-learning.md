@@ -3,7 +3,7 @@ title:  "Risk and uncertainty for deep learning"
 subtitle: "Ok, you've got your results. But how dispersive will your predictions be?"
 image: "cover.png"
 category: "Machine Learning"
-tags: ["notebook"]
+tags: ["notebook", "github"]
 ---
 
 # Risk vs. Uncertainty

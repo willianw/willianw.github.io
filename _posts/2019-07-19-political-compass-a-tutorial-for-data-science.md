@@ -3,7 +3,7 @@ title:  "Political compass test"
 subtitle: "(or a tutorial for your first Data Science project)"
 category: "Data Science"
 image: "cover.png"
-tags: ["politics"]
+tags: ["politics", "github"]
 ---
 
 One of the most fascinating things regarding to Data Science is the huge capacity it provides us to answer questions — maybe “answer” is very pretentious: let’s say “to provide insights”.
