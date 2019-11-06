@@ -409,8 +409,8 @@ embed#cv {
 	margin: 0 auto;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
-	grid-auto-rows: 60%;
-    grid-gap: 20% 5%;
+	grid-auto-rows: 12em;
+    grid-gap: 15% 5%;
 }
 
 @media screen and (max-width: 50em) {
