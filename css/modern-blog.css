@@ -40,7 +40,7 @@
 }
 
 .card__title {
-	font-size: 2.0vw;
+	font-size: 1.6vw;
 	line-height: 1;
 	padding: 2% 6%;
 	position: relative;
@@ -107,7 +107,6 @@ a:hover .card div {
 	.header {
 		padding: 3em 10% 4em;
 	}
-<<<<<<< HEAD
 
 	.header h1 {
 		font-size: 2.4em;
@@ -129,36 +128,12 @@ a:hover .card div {
 		grid-gap: 15% 5%;
 	}
 
-=======
-
-	.header h1 {
-		font-size: 2.4em;
-	}
-
-	.header span {
-		font-size: 1em;
-	}
-
-	.container {
-		margin-left: 20%;
-		position: relative;
-		float: left;
-		width: 80%;
-	}
-
-	.wrapper {
-		grid-template-columns: 1fr 1fr 1fr;
-		grid-gap: 15% 5%;
-	}
-
->>>>>>> e7504d9912877e8f0b04b6c1c374a490e57255b6
 }
 
 @media screen and (max-width: 540px) {
 
 	div.sidebar {
 		display: none;
-<<<<<<< HEAD
 	}
 
 	div.sidebar_mobile{
@@ -177,26 +152,6 @@ a:hover .card div {
 		font-size: 5vw;
 	}
 
-=======
-	}
-
-	div.sidebar_mobile{
-		display: flex;
-	}
-
-	.header {
-		padding: 0 10% 2em;
-	}
-
-	.header h1 {
-		font-size: 9.0vw;
-	}
-
-	.header span {
-		font-size: 5vw;
-	}
-
->>>>>>> e7504d9912877e8f0b04b6c1c374a490e57255b6
 	.container {
 		margin-left: 0%;
 		position: relative;
@@ -413,7 +368,7 @@ img#profile_photo {
 }
 
 #button-cv span {
-	font-size: 1.0em
+	font-size: 1.0em;
 	padding: 0;
 	margin: 0;
 }
