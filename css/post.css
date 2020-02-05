@@ -26,13 +26,38 @@
     font-weight: 700;
 }
 
+@media screen and (min-width: 540px) {
+
+    body {
+        font-size: 12pt;
+    }
+
+    .content {
+        margin: 0 20%;
+        padding: 1% 5%;
+    }
+
+}
+
+@media screen and (max-width: 540px) {
+
+    body {
+        font-size: 7.5vw;
+    }
+
+    .content {
+        margin: 0;
+        padding: 2% 1%;
+    }
+
+}
+
 body {
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
     color: var(--theme-color);
     font-family: 'Computer Modern', serif;
-    font-size: 12pt;
     font-weight: 400;
     padding: 0;
     margin: 0;
@@ -94,8 +119,6 @@ div#full {
 
 .content {
     background-color: white;
-    margin: 0 20%;
-    padding: 1% 5%;
 }
 
 div.highlight {
