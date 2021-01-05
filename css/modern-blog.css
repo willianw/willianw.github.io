@@ -283,7 +283,7 @@ div.sidebar nav.links div {
 div.sidebar nav.links a {
 	display: inline-block;
 	margin: 0.5vw;
-	font-size: 1.2vw;
+	font-size: 0.8vw;
 }
 
 div.sidebar nav.middle {
@@ -340,7 +340,7 @@ nav.categories li a:hover {
 }
 
 img#profile_photo {
-    width: 60%;
+    width: 30%;
     height: auto;
     border-radius: 50%;
 }

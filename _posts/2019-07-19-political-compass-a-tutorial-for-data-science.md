@@ -2,7 +2,7 @@
 title:  "Political compass test"
 subtitle: "(or a tutorial for your first Data Science project)"
 category: "Data Science"
-image: "cover.png"
+image: "cover.jpeg"
 tags: ["politics", "github"]
 ---
 
